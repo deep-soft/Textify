@@ -47,7 +47,7 @@ jobs:
       - name: Patch vcxproj
         shell: bash
         run: |
-          sed -i 's/C:\WTL10/.\WTL10/g' Textify.vcxproj
+          sed -i 's/C:\\WTL10/.\\WTL10/g' Textify.vcxproj
           cat Textify.vcxproj
           
       - name: Build solution
