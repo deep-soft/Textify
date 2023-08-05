@@ -8,6 +8,7 @@ on:
 
 env:
   TAG_NAME: Textify
+  PROG_VERSION: '1.3.10.0'
 
 jobs:
   build:
@@ -44,11 +45,17 @@ jobs:
           7z x *.zip
           cd ..
 
-      - name: Patch vcxproj
+      - name: Patch vcxproj and get program version
         shell: bash
         run: |
           sed -i 's/C:\\WTL10/.\\WTL10/g' Textify.vcxproj
-          cat Textify.vcxproj
+          # cat Textify.vcxproj
+          _version_major_ =${grep "define VERSION_MAJOR" version.h | awk '{print $3}')
+          _version_minor_ =${grep "define VERSION_MINOR" version.h | awk '{print $3}')
+          _version_revis_ =${grep "define VERSION_REVISION" version.h | awk '{print $3}')
+          _version_build_ =${grep "define VERSION_BUILD" version.h | awk '{print $3}')
+          _prog_version_=$_version_major_.$_version_minor_.$_version_revis_.$_version_build_
+          echo "PROG_VERSION=$_prog_version_" >>$GITHUB.ENV
           
       - name: Build solution
         run: |
@@ -62,9 +69,10 @@ jobs:
         env:
           Configuration: ${{ matrix.configuration }}
           Platform: ${{ matrix.platform }}
+          Version: ${{ env. PROG_VERSION }}
         with:
           type: 'zip'
-          filename: '${{ env.TAG_NAME }}-${{ env.Configuration }}-${{ env.Platform }}-${{ env.Target }}.zip'
+          filename: '${{ env.TAG_NAME }}-${{ env.Configuration }}-${{ env.Platform }}-${{ env.Version }}.zip'
           directory: 'Release'
           inclusions: '*.exe *.cer *.inf *.dll'
           exclusions: '*.map *.pdb ./.git/* .git/*'
