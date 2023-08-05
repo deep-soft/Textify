@@ -38,7 +38,9 @@ jobs:
         run: |
           mkdir WTL10
           cd WTL10
-          curl.exe -LOJ https://sourceforge.net/projects/wtl/files/WTL%2010/WTL%2010.0.10320%20Release/WTL10_10320_Release.zip/download
+          curl.exe -LOJ https://sourceforge.net/projects/wtl/files/WTL%2010/WTL%2010.0.10320%20Release/WTL10_10320_Release.zip
+          echo "dir: "
+          dir
           7z x *.zip
           cd ..
 
