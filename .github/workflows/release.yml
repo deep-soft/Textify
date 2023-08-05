@@ -18,7 +18,7 @@ jobs:
         platform: [Win32]
         target: [Windows10]
 
-    runs-on: windows-2022
+    runs-on: windows-2019
 
     steps:
       - name: Check out repository code
