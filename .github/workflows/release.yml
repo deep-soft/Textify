@@ -10,13 +10,12 @@ env:
   TAG_NAME: Textify
 
 jobs:
-  build_Win10:
+  build:
     strategy:
       matrix:
         # configuration: [Debug, Release]
         configuration: [Release]
         platform: [Win32]
-        target: [Windows10]
 
     runs-on: windows-2019
 
@@ -38,6 +37,7 @@ jobs:
         run: |
           mkdir WTL10
           cd WTL10
+          :: curl not working, don't download from sourceforge, at least version installed in Windows-2019
           curl.exe -LOJ https://sourceforge.net/projects/wtl/files/WTL%2010/WTL%2010.0.10320%20Release/WTL10_10320_Release.zip
           echo "dir: "
           dir
@@ -68,7 +68,7 @@ jobs:
         with:
           type: 'zip'
           filename: '${{ env.TAG_NAME }}-${{ env.Configuration }}-${{ env.Platform }}-${{ env.Target }}.zip'
-          directory: 'Win32/Release'
+          directory: 'Release'
           inclusions: '*.exe *.cer *.inf *.dll'
           exclusions: '*.map *.pdb ./.git/* .git/*'
           recursive_exclusions: '*.map *.pdb'
