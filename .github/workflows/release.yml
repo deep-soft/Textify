@@ -33,13 +33,18 @@ jobs:
           echo "Solution_Path=${{ env.TAG_NAME }}.sln" >> $GITHUB_ENV
 
       - name: Add WTL10
+        continue-on-error: true
         shell: cmd
         run: |
           mkdir WTL10
           cd WTL10
           curl.exe -LOJ https://sourceforge.net/projects/wtl/files/WTL%2010/WTL%2010.0.10320%20Release/WTL10_10320_Release.zip/download
-          7z x WTL10_10320_Release.zip
+          7z x *.zip
           cd ..
+
+      - name: Patch vcxproj
+        shell: bash
+        run: |
           sed -i 's/C:\WTL10/.\WTL10/g' Textify.vcxproj
           
       - name: Build solution
