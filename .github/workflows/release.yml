@@ -8,7 +8,7 @@ on:
 
 env:
   TAG_NAME: Textify
-  PROG_VERSION: '1.3.10.0'
+  PROG_VERSION: '1.0.0.0'
 
 jobs:
   build:
