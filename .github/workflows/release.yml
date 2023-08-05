@@ -60,7 +60,7 @@ jobs:
           echo "_version_revis_=" $_version_revis_
           echo "_version_build_=" $_version_build_
           _prog_version_="$_version_major_.$_version_minor_.$_version_revis_.$_version_build_"
-          echo "PROG_VERSION=$_prog_version_" >>$GITHUB.ENV
+          echo "PROG_VERSION=$_prog_version_" >> $GITHUB_ENV
           
       - name: Build solution
         run: |
